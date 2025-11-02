@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ==============================
+# Curry & Co. Notary Site – Full Auto Setup (Todd's real config)
+# ==============================
+
+PROJECT_NAME=${PROJECT_NAME:-curryco-notary}
+CALENDLY_URL=${CALENDLY_URL:-"https://calendly.com/todd-c-curryandcoservices/new-meeting"}
+CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL:-"todd.c@curryandcoservices.com"}
+SITE_TITLE=${SITE_TITLE:-"Curry & Co. Notary Services"}
+SITE_URL=${SITE_URL:-"https://curryandco.site"}
+RESEND_API_KEY=${RESEND_API_KEY:-"re_YHeUjoRZ_LNkUTmKgYSVnHaTGUSRvx4nY"}
+
+bold() { printf "\033[1m%s\033[0m\n" "$1"; }
+
+bold "Setting up $PROJECT_NAME with live Calendly + Resend integration..."
+
+if [ ! -d "$PROJECT_NAME" ]; then
+  npx create-next-app@latest "$PROJECT_NAME" --ts --eslint --app --src-dir --import-alias "@/*" --tailwind --no-src-router --yes
+else
+  echo "Project already exists, skipping creation."
+fi
+
+cd "$PROJECT_NAME"
+
+# Write .env.local
+cat > .env.local << EOF
+RESEND_API_KEY=${RESEND_API_KEY}
+CONTACT_TO_EMAIL=${CONTACT_TO_EMAIL}
+NEXT_PUBLIC_CALENDLY_URL=${CALENDLY_URL}
+EOF
+
+echo "Environment variables saved to .env.local"
+
+echo "---"
+echo "Project: $PROJECT_NAME"
+echo "Calendly: $CALENDLY_URL"
+echo "Contact Email: $CONTACT_TO_EMAIL"
+echo "Resend Key: [Loaded]"
+echo "---"
+echo "Next steps:"
+echo "1) cd $PROJECT_NAME"
+echo "2) npm run dev  # Launch local dev"
+echo "3) npx vercel --prod  # Deploy to Vercel"
+
+echo "Setup complete. You’re ready to launch Curry & Co. Notary Services 🚀"
