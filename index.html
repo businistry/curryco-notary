@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Curry & Co. Notary Services - Professional Document Authentication & Business Solutions</title>
+    <title>Curry & Co Services LLC - Professional Document Authentication & Business Solutions</title>
     <style>
         * {
             margin: 0;
@@ -919,7 +919,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo">Curry & Co. <span class="logo-accent">Notary Services</span></div>
+            <div class="logo">Curry &amp; Co <span class="logo-accent">Services LLC</span></div>
             <ul class="nav-links">
                 <li><a href="#services">Services</a></li>
                 <li><a href="#about">About</a></li>
@@ -1175,21 +1175,21 @@
             <p>Experience the difference that professional service and transformational leadership can make for your business.</p>
             <div class="cta-buttons">
                 <a href="#" class="btn-dark">Schedule Service Now →</a>
-                <a href="#" class="btn-outline-dark">Get Free Consultation</a>
+                <a href="#" id="cta-consult" class="btn-outline-dark">Get Free Consultation</a>
             </div>
             <div class="contact-info">
                 <div class="contact-item">
                     <div class="contact-icon">📞</div>
                     <div class="contact-details">
                         <h4>Phone</h4>
-                        <p><a href="tel:+1234567890" id="phoneLink">+1 (234) 567-890</a></p>
+                        <p><a href="tel:+13142995235" id="phoneLink">(314) 299-5235</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">✉️</div>
                     <div class="contact-details">
                         <h4>Email</h4>
-                        <p><a href="mailto:todd.c@curryandcoservices.com" id="emailLink">todd.c@curryandcoservices.com</a></p>
+                        <p><a href="mailto:info@curryandcoservices.com" id="emailLink">info@curryandcoservices.com</a></p>
                     </div>
                 </div>
                 <div class="contact-item">
@@ -1197,6 +1197,13 @@
                     <div class="contact-details">
                         <h4>Schedule</h4>
                         <p><a href="#" id="calendlyLink">Schedule a meeting</a></p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">📍</div>
+                    <div class="contact-details">
+                        <h4>Office</h4>
+                        <p>401 Pine Street<br>St. Louis, MO 63102</p>
                     </div>
                 </div>
             </div>
@@ -1220,7 +1227,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-section">
-                <h4>Curry & Co. <span style="color: #d4a747;">Notary Services</span></h4>
+                <h4>Curry &amp; Co Services <span style="color: #d4a747;">LLC</span></h4>
                 <p>Professional notary and business consulting services delivered with transformational leadership principles.</p>
                 <div>
                     <span class="footer-badge">Licensed</span>
@@ -1250,8 +1257,8 @@
             <div class="footer-section">
                 <h4>Contact</h4>
                 <ul>
-                    <li><a href="tel:+15551234567">(555) 123-4567</a></li>
-                    <li><a href="mailto:todd.c@curryandcoservices.com">todd.c@curryandcoservices.com</a></li>
+                    <li><a href="tel:+13142995235">(314) 299-5235</a></li>
+                    <li><a href="mailto:info@curryandcoservices.com">info@curryandcoservices.com</a></li>
                     <li style="color: #94a3b8; margin-top: 1rem;">Mobile Service Available</li>
                 </ul>
             </div>
@@ -1263,8 +1270,7 @@
     <!-- Inline scripts: Calendly popup + contact form submission to Vercel API -->
     <script>
         const CALENDLY_URL = 'https://calendly.com/todd-c-curryandcoservices/new-meeting';
-        const CONTACT_EMAIL = 'todd.c@curryandcoservices.com';
-
+        const CONTACT_EMAIL = 'info@curryandcoservices.com';
         function openCalendly() {
             if (window.Calendly && CALENDLY_URL) {
                 Calendly.initPopupWidget({ url: CALENDLY_URL });
@@ -1275,7 +1281,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            ['scheduleBtn', 'calendlyLink', 'cf-schedule'].forEach(id => {
+            ['scheduleBtn', 'calendlyLink', 'cf-schedule', 'cta-consult'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) {
                     el.addEventListener('click', (event) => {
@@ -1289,7 +1295,7 @@
             const status = document.getElementById('cf-status');
             if (!form || !status) return;
 
-            form.addEventListener('submit', async (event) => {
+            form.addEventListener('submit', (event) => {
                 event.preventDefault();
 
                 const name = document.getElementById('cf-name').value.trim();
@@ -1303,37 +1309,13 @@
                 }
 
                 status.style.display = 'block';
-                status.textContent = 'Sending...';
+                status.textContent = 'Opening your email client…';
 
-                try {
-                    const response = await fetch('/api/contact', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, email, message })
-                    });
-
-                    if (response.ok) {
-                        status.textContent = 'Message sent — we will reply shortly.';
-                        form.reset();
-                        return;
-                    }
-
-                    console.error('Contact form error', response.status, await response.text());
-                    status.textContent = 'Send failed — opening your email client as fallback.';
-                    openMailFallback(name, email, message);
-                } catch (error) {
-                    console.error('Contact form error', error);
-                    status.textContent = 'Network error — opening your email client as fallback.';
-                    openMailFallback(name, email, message);
-                }
+                const subject = encodeURIComponent(`Contact from ${name}`);
+                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+                window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
             });
         });
-
-        function openMailFallback(name, email, message) {
-            const subject = encodeURIComponent(`Contact from ${name || 'Website Visitor'}`);
-            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-            window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-        }
     </script>
 </body>
 </html>
