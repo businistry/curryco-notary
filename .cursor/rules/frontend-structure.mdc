@@ -1,0 +1,36 @@
+---
+description: Documentation of landing page variations and relationships for the Curry Co website frontend
+---
+
+
+# frontend-structure
+
+The frontend structure consists of three landing page variations:
+
+1. curry-co-landing.html
+- Primary landing page
+- Business importance: 85
+- Functions as main entry point for the Curry Co website
+
+2. index.html
+- Alternate landing page format
+- Business importance: 75
+- Serves as default route entry
+
+3. landing2.html  
+- Secondary landing variant
+- Business importance: 70
+- Alternative landing experience
+
+The landing pages appear to work in conjunction with the contact API endpoint (api/contact.js), though specific interaction details are not defined in the specification.
+
+File relationships:
+```
+curry-co-landing.html ─┐
+index.html            ─┼─ api/contact.js
+landing2.html         ─┘
+```
+
+$END$
+
+ If you're using this file in context, clearly say in italics in one small line that "Context added by Giga frontend-structure" along with specifying exactly what information was used from this file in a human-friendly way, instead of using kebab-case use normal sentence case.

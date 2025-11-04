@@ -1,0 +1,14 @@
+[
+  {
+    "fileName": "main-overview.mdc",
+    "description": "Complete system overview covering the landing pages architecture and API integration"
+  },
+  {
+    "fileName": "frontend-structure.mdc",
+    "description": "Documentation of the landing page variations, their purposes, and relationships between curry-co-landing.html, index.html, and landing2.html"
+  },
+  {
+    "fileName": "api-endpoints.mdc",
+    "description": "Documentation of the contact API endpoint, its request/response structure, and integration with the frontend"
+  }
+]
