@@ -1,35 +1,29 @@
 ---
-description: Documentation of landing page variations and relationships for the Curry Co website frontend
+description: Documentation of landing page variations and their relationships in the frontend structure
 ---
 
 
 # frontend-structure
 
-The frontend structure consists of three landing page variations:
+The project utilizes multiple landing page variations that serve different presentation purposes:
 
-1. curry-co-landing.html
-- Primary landing page
-- Business importance: 85
-- Functions as main entry point for the Curry Co website
+Landing Page Hierarchy:
+- curry-co-landing.html: Primary landing page template
+- index.html: Main entry point and default landing
+- landing2.html: Alternative landing page variation
 
-2. index.html
-- Alternate landing page format
-- Business importance: 75
-- Serves as default route entry
+These templates form a coordinated set of entry points, though their specific differentiation points are not detailed in the specification. The pages appear to be connected through a shared contact form integration via api/contact.js.
 
-3. landing2.html  
-- Secondary landing variant
-- Business importance: 70
-- Alternative landing experience
-
-The landing pages appear to work in conjunction with the contact API endpoint (api/contact.js), though specific interaction details are not defined in the specification.
-
-File relationships:
+Relationship Structure:
 ```
 curry-co-landing.html ─┐
-index.html            ─┼─ api/contact.js
-landing2.html         ─┘
+                       ├── api/contact.js
+index.html ───────────┤
+landing2.html ────────┘
 ```
+
+Business Impact Score: 45
+The multiple landing page approach indicates a deliberate business strategy for different entry points, though the specific business logic driving template selection is not specified.
 
 $END$
 
